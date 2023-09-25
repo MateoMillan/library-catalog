@@ -1,3 +1,5 @@
+import Book from "../Book/Book";
+
 interface Author {
 	name: string;
 	otherBooks: string[];
@@ -60,9 +62,9 @@ export default function CatalogContainer({ books, filters }: PropTypes) {
 	});
 
 	return (
-		<div>
+		<div className="book-container">
 			{filteredBooks.map((libraryItem: LibraryItem, index: number) => (
-				<p key={index}>{libraryItem.book.title}</p>
+				<Book key={index} book={libraryItem.book} />
 			))}
 		</div>
 	);
