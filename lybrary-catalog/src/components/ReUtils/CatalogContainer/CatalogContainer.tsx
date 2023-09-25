@@ -24,21 +24,38 @@ interface Library {
 
 interface PropTypes {
 	books: Library;
-	filters: {
+	filters?: {
 		search: string;
-		pages: number[];
-		genres: "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror";
+		pages: [number, number];
+		genres: "All" | "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror";
 	};
 }
 
 export default function CatalogContainer({ books, filters }: PropTypes) {
-	const bookLibrary = books.library || [];
+	const bookLibrary = books.library;
 
 	const filteredBooks = bookLibrary.filter((element: LibraryItem) => {
-		if (filters.search === "") {
-			return true;
+		if (filters) {
+			if (filters.genres !== "All") {
+				return (
+					element.book.title
+						.toUpperCase()
+						.includes(filters.search.toUpperCase()) &&
+					element.book.genre === filters.genres &&
+					element.book.pages >= filters.pages[0] &&
+					element.book.pages <= filters.pages[1]
+				);
+			} else {
+				return (
+					element.book.title
+						.toUpperCase()
+						.includes(filters.search.toUpperCase()) &&
+					element.book.pages >= filters.pages[0] &&
+					element.book.pages <= filters.pages[1]
+				);
+			}
 		} else {
-			return filters.search === element.book.title;
+			return true;
 		}
 	});
 
