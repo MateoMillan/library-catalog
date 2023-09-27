@@ -1,4 +1,6 @@
 import Select from "../Select/Select";
+import { useState, useContext } from "react";
+import { SearchContext } from "../../../context/search";
 
 interface Author {
 	name: string;
@@ -29,6 +31,9 @@ interface PropTypes {
 }
 
 export default function FilterContainer({ books }: PropTypes) {
+	const [searchState, setSearchState] = useState("");
+	const searchContext = useContext(SearchContext);
+
 	// eslint-disable-next-line prefer-const
 	let genres: string[] = [];
 	genres.push("All");
@@ -37,10 +42,24 @@ export default function FilterContainer({ books }: PropTypes) {
 			genres.push(book.book.genre);
 		}
 	});
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchState(e.target.value);
+		console.log(`state: ${searchState}, context: ${searchContext}`);
+	};
+
 	return (
 		<div className="filter-container">
 			<div className="top">
-				<input type="text" name="search" id="input-search" />
+				<SearchContext.Provider value={searchState}>
+					<input
+						type="text"
+						name="search"
+						id="input-search"
+						value={searchState}
+						onChange={handleChange}
+					/>
+				</SearchContext.Provider>
 			</div>
 			<div className="bottom">
 				<Select name="genres" id="genres-select" options={genres} />

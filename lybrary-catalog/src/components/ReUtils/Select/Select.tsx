@@ -9,7 +9,7 @@ export default function Select({ name, id, options }: PropTypes) {
 		<>
 			<select name={name} id={id}>
 				{options.map((value, index) => {
-					return <option key={index} value={value}>{value}</option>;
+					return <option key={index} value={value}>{value === "All" ? "Todos" : value}</option>;
 				})}
 			</select>
 		</>
