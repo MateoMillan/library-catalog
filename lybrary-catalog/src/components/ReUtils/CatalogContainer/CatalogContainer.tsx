@@ -29,7 +29,7 @@ interface PropTypes {
 	filters?: {
 		search: string;
 		pages: [number, number];
-		genres: "All" | "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror";
+		genres: "All" | "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror" | string | undefined;
 	};
 }
 

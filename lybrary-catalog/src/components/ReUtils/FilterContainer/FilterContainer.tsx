@@ -1,6 +1,5 @@
 import Select from "../Select/Select";
-import { useState, useContext } from "react";
-import { SearchContext } from "../../../context/search";
+import { useState, useEffect } from "react";
 
 interface Author {
 	name: string;
@@ -26,13 +25,42 @@ interface Library {
 	library: LibraryItem[];
 }
 
-interface PropTypes {
-	books: Library;
+interface Filter {
+	pages: [number, number];
+	search: string;
+	genres:
+		| "All"
+		| "Fantasía"
+		| "Ciencia ficción"
+		| "Zombies"
+		| "Terror"
+		| string
+		| undefined;
 }
 
-export default function FilterContainer({ books }: PropTypes) {
+interface PropTypes {
+	books: Library;
+	onEnviarDatos: (dato: Filter) => void;
+}
+
+export default function FilterContainer({ books, onEnviarDatos }: PropTypes) {
 	const [searchState, setSearchState] = useState("");
-	const searchContext = useContext(SearchContext);
+	const [maxPages, setMaxPages] = useState(0);
+	const [pagesState, setPagesState] = useState<[number, number]>([0, 0]);
+	const [genresState, setGenresState] = useState<
+		| "All"
+		| "Fantasía"
+		| "Ciencia ficción"
+		| "Zombies"
+		| "Terror"
+		| string
+		| undefined
+	>("All");
+
+	const maxPagesFromBooks = Math.max(
+		...books.library.map((book) => book.book.pages)
+	);
+	setMaxPages(maxPagesFromBooks);
 
 	// eslint-disable-next-line prefer-const
 	let genres: string[] = [];
@@ -43,26 +71,57 @@ export default function FilterContainer({ books }: PropTypes) {
 		}
 	});
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchState(e.target.value);
-		console.log(`state: ${searchState}, context: ${searchContext}`);
+	setPagesState(() => [0, maxPages]);
+
+	const handleInputSearchChange = (
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setSearchState(() => e.target.value);
 	};
+
+	const handleInputPagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setPagesState(() => [0, parseInt(e.target.value)]);
+	};
+
+	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setGenresState(() => e.target.value);
+	};
+
+	useEffect(() => {
+		console.log("Inside useEffect");
+		onEnviarDatos({
+			search: searchState,
+			pages: pagesState,
+			genres: genresState,
+		});
+	}, [onEnviarDatos, searchState, pagesState, genresState]);
 
 	return (
 		<div className="filter-container">
 			<div className="top">
-				<SearchContext.Provider value={searchState}>
-					<input
-						type="text"
-						name="search"
-						id="input-search"
-						value={searchState}
-						onChange={handleChange}
-					/>
-				</SearchContext.Provider>
+				<input
+					type="text"
+					name="search"
+					id="input-search"
+					value={searchState}
+					onChange={handleInputSearchChange}
+				/>
 			</div>
 			<div className="bottom">
-				<Select name="genres" id="genres-select" options={genres} />
+				<input
+					type="range"
+					name="pages"
+					id="pages-input"
+					min={0}
+					max={maxPages}
+					onChange={handleInputPagesChange}
+				/>
+				<Select
+					name="genres"
+					id="genres-select"
+					options={genres}
+					onChange={handleSelectChange}
+				/>
 			</div>
 		</div>
 	);
