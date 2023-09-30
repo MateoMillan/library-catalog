@@ -8,32 +8,19 @@ import items from "./data/footer-items.json";
 import FilterContainer from "./components/ReUtils/FilterContainer/FilterContainer.tsx";
 import { useState } from "react";
 
-interface Filter {
-	pages: [number, number];
-	search: string;
-	genres:
-		| "All"
-		| "Fantasía"
-		| "Ciencia ficción"
-		| "Zombies"
-		| "Terror"
-		| string
-		| undefined;
-}
+type Genre = "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror" | "All"
 
 export default function App() {
-	const initialState: Filter = {
-		pages: [0, 1500],
-		search: "",
-		genres: "All",
+	const [searchState, setSearchState] = useState<string>("");
+	const [pagesState, setPagesState] = useState<number>(1500);
+	const [genresState, setGenresState] = useState<Genre>("All");
+
+	const manejarDatosDesdeHijo = (search: string, genre: Genre, pages: number) => {
+		setSearchState(search);
+		setPagesState(pages);
+		setGenresState(genre);
 	};
 
-	const [filter, setFilter] = useState(initialState);
-
-	const manejarDatosDesdeHijo = (dato: Filter) => {
-		setFilter(dato);
-	};
-	
 	return (
 		<>
 			<Div className="title-section">
@@ -42,9 +29,16 @@ export default function App() {
 			<Div className="catalog-section">
 				<FilterContainer
 					books={library}
-					onEnviarDatos={manejarDatosDesdeHijo}
+					onSendData={manejarDatosDesdeHijo}
 				/>
-				<CatalogContainer books={library} filters={filter} />
+				<CatalogContainer
+					books={library}
+					filters={{
+						pages: pagesState,
+						search: searchState,
+						genres: genresState,
+					}}
+				/>
 			</Div>
 			<Saved />
 			<Footer items={items} />

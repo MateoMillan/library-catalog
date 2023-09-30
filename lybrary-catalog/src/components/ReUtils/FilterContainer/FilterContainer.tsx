@@ -1,6 +1,8 @@
 import Select from "../Select/Select";
 import { useState, useEffect } from "react";
 
+type Genre = "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror" | "All";
+
 interface Author {
 	name: string;
 	otherBooks: string[];
@@ -25,42 +27,21 @@ interface Library {
 	library: LibraryItem[];
 }
 
-interface Filter {
-	pages: [number, number];
-	search: string;
-	genres:
-		| "All"
-		| "Fantasía"
-		| "Ciencia ficción"
-		| "Zombies"
-		| "Terror"
-		| string
-		| undefined;
-}
-
 interface PropTypes {
 	books: Library;
-	onEnviarDatos: (dato: Filter) => void;
+	onSendData: (search: string, genre: Genre, pages: number) => void;
 }
 
-export default function FilterContainer({ books, onEnviarDatos }: PropTypes) {
+export default function FilterContainer({ books, onSendData }: PropTypes) {
+	const maxPages = Math.max(...books.library.map((book) => book.book.pages))
 	const [searchState, setSearchState] = useState("");
-	const [maxPages, setMaxPages] = useState(0);
-	const [pagesState, setPagesState] = useState<[number, number]>([0, 0]);
-	const [genresState, setGenresState] = useState<
-		| "All"
-		| "Fantasía"
-		| "Ciencia ficción"
-		| "Zombies"
-		| "Terror"
-		| string
-		| undefined
-	>("All");
+	const [pagesState, setPagesState] = useState(maxPages);
+	const [genresState, setGenresState] = useState<Genre>("All");
+	const [maxPagesState, setMaxPages] = useState<number>();
 
-	const maxPagesFromBooks = Math.max(
-		...books.library.map((book) => book.book.pages)
-	);
-	setMaxPages(maxPagesFromBooks);
+	useEffect(() => {
+		setMaxPages(maxPages);
+	}, []);
 
 	// eslint-disable-next-line prefer-const
 	let genres: string[] = [];
@@ -71,56 +52,59 @@ export default function FilterContainer({ books, onEnviarDatos }: PropTypes) {
 		}
 	});
 
-	setPagesState(() => [0, maxPages]);
-
-	const handleInputSearchChange = (
-		e: React.ChangeEvent<HTMLInputElement>
-	) => {
-		setSearchState(() => e.target.value);
-	};
-
-	const handleInputPagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setPagesState(() => [0, parseInt(e.target.value)]);
-	};
-
-	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setGenresState(() => e.target.value);
-	};
-
 	useEffect(() => {
-		console.log("Inside useEffect");
-		onEnviarDatos({
-			search: searchState,
-			pages: pagesState,
-			genres: genresState,
-		});
-	}, [onEnviarDatos, searchState, pagesState, genresState]);
+		onSendData(searchState, genresState, pagesState);
+	}, [searchState, genresState, pagesState]);
+
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchState(e.target.value);
+	};
+
+	const handleGenresChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		if (
+			e.target.value === "All" ||
+			e.target.value === "Fantasía" ||
+			e.target.value === "Ciencia ficción" ||
+			e.target.value === "Terror" ||
+			e.target.value === "Zombies"
+		) {
+			setGenresState(e.target.value);
+		}
+	};
+
+	const handlePagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setPagesState(parseInt(e.target.value));
+	};
 
 	return (
 		<div className="filter-container">
 			<div className="top">
 				<input
+					autoComplete="off"
 					type="text"
 					name="search"
 					id="input-search"
 					value={searchState}
-					onChange={handleInputSearchChange}
+					onChange={handleSearchChange}
 				/>
 			</div>
 			<div className="bottom">
-				<input
-					type="range"
-					name="pages"
-					id="pages-input"
-					min={0}
-					max={maxPages}
-					onChange={handleInputPagesChange}
-				/>
+				<label id="max-pages-label">
+					<input
+						type="range"
+						name="max-pages-input"
+						id="max-pages-input"
+						value={pagesState}
+						max={maxPagesState}
+						onChange={handlePagesChange}
+					/>
+					Maximo de Páginas {pagesState}
+				</label>
 				<Select
 					name="genres"
 					id="genres-select"
 					options={genres}
-					onChange={handleSelectChange}
+					onChange={handleGenresChange}
 				/>
 			</div>
 		</div>
