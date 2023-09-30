@@ -8,7 +8,6 @@ interface Items {
 }
 
 export default function Footer({ items }: Items) {
-	console.log(items);
 	return (
 		<>
 			<footer className="footer">
