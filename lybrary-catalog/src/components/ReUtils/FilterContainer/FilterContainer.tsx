@@ -1,6 +1,7 @@
 import Select from "../Select/Select";
-import { useState, useContext } from "react";
-import { SearchContext } from "../../../context/search";
+import { useState, useEffect } from "react";
+
+type Genre = "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror" | "All";
 
 interface Author {
 	name: string;
@@ -10,7 +11,7 @@ interface Author {
 interface Book {
 	title: string;
 	pages: number;
-	genre: string;
+	genre: Genre;
 	cover: string;
 	synopsis: string;
 	year: number;
@@ -28,11 +29,13 @@ interface Library {
 
 interface PropTypes {
 	books: Library;
+	onSendData: (search: string, genre: Genre, pages: number) => void;
 }
 
-export default function FilterContainer({ books }: PropTypes) {
+export default function FilterContainer({ books, onSendData }: PropTypes) {
 	const [searchState, setSearchState] = useState("");
-	const searchContext = useContext(SearchContext);
+	const [pagesState, setPagesState] = useState(1500);
+	const [genresState, setGenresState] = useState<Genre>("All");
 
 	// eslint-disable-next-line prefer-const
 	let genres: string[] = [];
@@ -43,26 +46,57 @@ export default function FilterContainer({ books }: PropTypes) {
 		}
 	});
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	useEffect(() => {
+		// Esta función se ejecutará cada vez que datoLocal cambie
+		onSendData(searchState, genresState, pagesState);
+	}, [searchState, genresState, pagesState]); // Asegúrate de incluir datoLocal como dependencia para que useEffect se ejecute cuando cambie
+
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchState(e.target.value);
-		console.log(`state: ${searchState}, context: ${searchContext}`);
+	};
+
+	const handleGenresChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		if (
+			e.target.value === "All" ||
+			e.target.value === "Fantasía" ||
+			e.target.value === "Ciencia ficción" ||
+			e.target.value === "Terror" ||
+			e.target.value === "Zombies"
+		) {
+			setGenresState(e.target.value);
+		}
+	};
+
+	const handlePagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setPagesState(parseInt(e.target.value));
 	};
 
 	return (
 		<div className="filter-container">
 			<div className="top">
-				<SearchContext.Provider value={searchState}>
-					<input
-						type="text"
-						name="search"
-						id="input-search"
-						value={searchState}
-						onChange={handleChange}
-					/>
-				</SearchContext.Provider>
+				<input
+					type="text"
+					name="search"
+					id="input-search"
+					value={searchState}
+					onChange={handleSearchChange}
+				/>
 			</div>
 			<div className="bottom">
-				<Select name="genres" id="genres-select" options={genres} />
+				<label htmlFor="max-pages-label" id="max-pages-label">
+					<input
+						type="range"
+						name="max-pages-input"
+						id="max-pages-input"
+						onChange={handlePagesChange}
+					/>
+				</label>
+				<Select
+					name="genres"
+					id="genres-select"
+					options={genres}
+					onChange={handleGenresChange}
+				/>
 			</div>
 		</div>
 	);

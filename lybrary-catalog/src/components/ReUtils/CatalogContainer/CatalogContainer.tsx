@@ -28,7 +28,7 @@ interface PropTypes {
 	books: Library;
 	filters?: {
 		search: string;
-		pages: [number, number];
+		pages: number;
 		genres: "All" | "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror";
 	};
 }
@@ -44,16 +44,14 @@ export default function CatalogContainer({ books, filters }: PropTypes) {
 						.toUpperCase()
 						.includes(filters.search.toUpperCase()) &&
 					element.book.genre === filters.genres &&
-					element.book.pages >= filters.pages[0] &&
-					element.book.pages <= filters.pages[1]
+					element.book.pages <= filters.pages
 				);
 			} else {
 				return (
 					element.book.title
 						.toUpperCase()
 						.includes(filters.search.toUpperCase()) &&
-					element.book.pages >= filters.pages[0] &&
-					element.book.pages <= filters.pages[1]
+					element.book.pages <= filters.pages
 				);
 			}
 		} else {
