@@ -10,7 +10,6 @@ import { useState } from "react";
 
 type Genre = "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror" | "All"
 
-
 export default function App() {
 	const [searchState, setSearchState] = useState<string>("");
 	const [pagesState, setPagesState] = useState<number>(1500);

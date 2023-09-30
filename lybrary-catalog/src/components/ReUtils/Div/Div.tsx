@@ -7,8 +7,8 @@ interface PropTypes {
 
 export default function Div({ children, className }: PropTypes) {
 	return (
-		<div className={className}>
-			{children}
+		<div className={"top-div " + (className && className)}>
+			{children && children}
 		</div>
 	)
 }

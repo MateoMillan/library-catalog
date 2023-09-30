@@ -11,7 +11,7 @@ interface Author {
 interface Book {
 	title: string;
 	pages: number;
-	genre: Genre;
+	genre: string;
 	cover: string;
 	synopsis: string;
 	year: number;
@@ -33,9 +33,15 @@ interface PropTypes {
 }
 
 export default function FilterContainer({ books, onSendData }: PropTypes) {
+	const maxPages = Math.max(...books.library.map((book) => book.book.pages))
 	const [searchState, setSearchState] = useState("");
-	const [pagesState, setPagesState] = useState(1500);
+	const [pagesState, setPagesState] = useState(maxPages);
 	const [genresState, setGenresState] = useState<Genre>("All");
+	const [maxPagesState, setMaxPages] = useState<number>();
+
+	useEffect(() => {
+		setMaxPages(maxPages);
+	}, []);
 
 	// eslint-disable-next-line prefer-const
 	let genres: string[] = [];
@@ -47,9 +53,8 @@ export default function FilterContainer({ books, onSendData }: PropTypes) {
 	});
 
 	useEffect(() => {
-		// Esta función se ejecutará cada vez que datoLocal cambie
 		onSendData(searchState, genresState, pagesState);
-	}, [searchState, genresState, pagesState]); // Asegúrate de incluir datoLocal como dependencia para que useEffect se ejecute cuando cambie
+	}, [searchState, genresState, pagesState]);
 
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchState(e.target.value);
@@ -75,6 +80,7 @@ export default function FilterContainer({ books, onSendData }: PropTypes) {
 		<div className="filter-container">
 			<div className="top">
 				<input
+					autoComplete="off"
 					type="text"
 					name="search"
 					id="input-search"
@@ -83,13 +89,16 @@ export default function FilterContainer({ books, onSendData }: PropTypes) {
 				/>
 			</div>
 			<div className="bottom">
-				<label htmlFor="max-pages-label" id="max-pages-label">
+				<label id="max-pages-label">
 					<input
 						type="range"
 						name="max-pages-input"
 						id="max-pages-input"
+						value={pagesState}
+						max={maxPagesState}
 						onChange={handlePagesChange}
 					/>
+					Maximo de Páginas {pagesState}
 				</label>
 				<Select
 					name="genres"
