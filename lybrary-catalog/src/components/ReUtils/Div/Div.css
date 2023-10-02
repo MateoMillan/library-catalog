@@ -25,3 +25,13 @@
 		rgb(67, 67, 67) 100%
 	);
 }
+
+.catalog-section {
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	justify-content: center;
+	height: fit-content;
+}	

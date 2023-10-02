@@ -1,4 +1,5 @@
 import Book from "../Book/Book";
+import "./CatalogContainer.css"
 
 interface Author {
 	name: string;
