@@ -11,6 +11,7 @@
 	color: #db7f7f;
 	transition: .4s;
 	transition: 0s background-color;
+	z-index: 1000;
 }
 
 .name {

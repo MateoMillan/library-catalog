@@ -83,6 +83,7 @@ export default function FilterContainer({ books, onSendData }: PropTypes) {
 					autoComplete="off"
 					type="text"
 					name="search"
+					placeholder="Search a book..."
 					id="input-search"
 					value={searchState}
 					onChange={handleSearchChange}

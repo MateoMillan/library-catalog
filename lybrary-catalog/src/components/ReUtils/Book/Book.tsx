@@ -1,3 +1,5 @@
+import "./Book.css";
+
 interface Author {
 	name: string;
 	otherBooks: string[];
@@ -22,14 +24,17 @@ export default function Book({ book }: LibraryItem) {
 	return (
 		<>
 			<div className="book">
+				<div className="material-div"></div>
 				<img
 					src={book.cover}
 					alt={`book-library-${book.title}-${book.author}-${book.genre}`}
 					className="book-image"
 					draggable="false"
 				/>
-				<h3 className="book-tite">{book.title}</h3>
-				<h4 className="book-pages">{book.pages}</h4>
+				<div className="book-info">
+					<h3 className="book-title">{book.title}</h3>
+					<h4 className="book-pages">{book.pages}</h4>
+				</div>
 			</div>
 		</>
 	);
