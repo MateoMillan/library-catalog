@@ -1,0 +1,20 @@
+.no-book {
+	display: flex;
+	width: fit-content;
+	justify-content: center;
+	position: relative;
+	background-color: #ddd;
+	border-radius: 20px;
+	overflow: hidden;
+	box-sizing: border-box;
+	transition: .1s;
+	margin: 20px;
+	z-index: 450;
+}
+
+.no-book-image {
+	width: 300px;
+	border-radius: 20px;
+	transition: .1s;
+	z-index: 500;
+}

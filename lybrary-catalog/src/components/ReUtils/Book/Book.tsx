@@ -33,7 +33,7 @@ export default function Book({ book }: LibraryItem) {
 				/>
 				<div className="book-info">
 					<h3 className="book-title">{book.title}</h3>
-					<h4 className="book-pages">{book.pages}</h4>
+					<h4 className="book-pages">{book.pages} páginas</h4>
 				</div>
 			</div>
 		</>
