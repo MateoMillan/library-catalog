@@ -1,0 +1,26 @@
+.footer {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
+	color: #db7f7f;
+	background-color: #292929;
+	padding: 30px;
+}
+
+.item-container {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	color: #292929;;
+}
+
+.footer-item {
+	margin: 5px;
+	text-decoration: none;
+	color: #db7f7f;;
+}
+
+.item-container a {
+	color: #ddd;
+}
