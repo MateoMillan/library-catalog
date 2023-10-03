@@ -10,6 +10,7 @@
 	transition: .1s;
 	margin: 20px;
 	z-index: 450;
+	box-shadow: 6px 6px 10px 1px rgba(0, 0, 0, 0.448);
 }
 
 
@@ -43,7 +44,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	background-color: #ddd;
+	background-color: #363636;
+	color: #ddd;
 	transition: .3s;
 	padding: 15px;
 	width: 100%;

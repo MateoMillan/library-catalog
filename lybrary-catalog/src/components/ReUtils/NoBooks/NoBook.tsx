@@ -1,17 +1,19 @@
 import "./NoBook.css";
+import miImagen from '../../../assets/no-results.png';
+
 
 export default function NoBook() {
 	return (
 		<>
 			<div className="no-book">
 				<img
-					src={
-						"https://us.123rf.com/450wm/bsd555/bsd5552008/bsd555200801383/153556937-no-se-encontraron-resultados-icono-de-color-rgb-problema-de-navegaci%C3%B3n-por-internet-mensaje-de.jpg"
-					}
+					src={miImagen}
 					alt={`book-library`}
 					className="no-book-image"
 					draggable="false"
 				/>
+				<h3 className="no-book-title">No se encontraron resultados</h3>
+				<h3 className="no-book-paragraph">Prueba a cambiar los filtros</h3>
 			</div>
 		</>
 	);
