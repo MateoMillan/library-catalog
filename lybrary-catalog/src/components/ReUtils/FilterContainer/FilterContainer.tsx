@@ -1,5 +1,6 @@
 import Select from "../Select/Select";
 import { useState, useEffect } from "react";
+import "./FilterContainer.css"
 
 type Genre = "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror" | "All";
 
@@ -83,26 +84,30 @@ export default function FilterContainer({ books, onSendData }: PropTypes) {
 					autoComplete="off"
 					type="text"
 					name="search"
+					placeholder="Search a book..."
 					id="input-search"
+					className="input-search"
 					value={searchState}
 					onChange={handleSearchChange}
 				/>
 			</div>
 			<div className="bottom">
-				<label id="max-pages-label">
+				<label className="max-pages-label">
 					<input
 						type="range"
 						name="max-pages-input"
 						id="max-pages-input"
+						className="max-pages-input bottom-filters"
 						value={pagesState}
 						max={maxPagesState}
 						onChange={handlePagesChange}
 					/>
-					Maximo de Páginas {pagesState}
+					Max pages: <b>{pagesState}</b>
 				</label>
 				<Select
 					name="genres"
 					id="genres-select"
+					className="genres-select bottom-filters"
 					options={genres}
 					onChange={handleGenresChange}
 				/>

@@ -1,4 +1,5 @@
 import { IoMailOutline, IoCallOutline } from "react-icons/io5";
+import "./Footer.css"
 
 interface Items {
 	items: {
@@ -25,7 +26,7 @@ export default function Footer({ items }: Items) {
 					}
 					return (
 						<div key={index} className="item-container">
-							<h4>{item.text[0]}</h4>
+							<h4 className="footer-item">{item.text[0]}</h4>
 							<a className="footer-item" href={item.text[2]}>
 								{item.text[1]}
 							</a>

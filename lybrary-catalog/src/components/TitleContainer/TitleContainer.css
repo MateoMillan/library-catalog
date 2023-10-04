@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Merriweather&family=Mooli&family=Quicksand&display=swap");
+
+.title-container {
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	display: flex;
+	background: transparent;
+	color: #db7f7f;
+	transition: .4s;
+	transition: 0s background-color;
+	z-index: 1000;
+}
+
+.name {
+	animation: none;
+	font-size: 80px;
+	font-family: "Merriweather", serif;
+	transition: .3s;
+}
+
+.name:hover {
+	animation: ChangingFonts linear infinite 1s;
+	cursor: pointer;
+}
+
+.slogan {
+	animation: none;
+	transition: .3s;
+}
+
+.slogan:hover {
+	animation: ChangingFonts linear infinite 1s;
+	cursor: pointer;
+}
+
+@keyframes ChangingFonts {
+	0% {
+		font-family: "Merriweather", serif;
+	}
+	25% {
+		font-family: "Josefin Sans", sans-serif;
+	}
+	50% {
+		font-family: "Mooli", sans-serif;
+	}
+	75% {
+		font-family: "Quicksand", sans-serif;
+	}
+	100% {
+		font-family: "Merriweather", serif;
+	}
+}
+
+.title-container-scrolled {
+	height: 90px;
+	position: fixed;
+	background: transparent;
+}
+
+.title-container-scrolled .slogan {
+	display: none;
+}
+
+.title-container-scrolled .name {
+	font-size: 40px;
+}
+
+.title-container-scrolled-840 {
+
+	background-color: rgb(34, 34, 34);
+}
