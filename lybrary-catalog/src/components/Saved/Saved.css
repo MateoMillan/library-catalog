@@ -1,0 +1,38 @@
+.saved-container {
+	
+	border-radius: 100px;
+	padding: 15px;
+	font-size: 30px;
+	position: fixed;
+	background-color: #7fdb7f;
+	right: 50px;
+	bottom: 50px;
+	z-index: 1500;
+	height: 70px;
+	width: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: .8s ease-out;
+	overflow: hidden;
+}
+
+.saved-toggle {
+	border: none;
+	font-size: 30px;
+	background-color: #7fdb7f;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: .8s ease-out;
+}
+
+.active {
+	transform: scale(70);
+}
+
+.active .saved-toggle{
+	transform: scale(.02);
+}

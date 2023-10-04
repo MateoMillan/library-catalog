@@ -3,7 +3,6 @@ import "./TitleContainer.css";
 export default function TitleContainer() {
 	const titleContainer = document.getElementById("title-container");
 	window.addEventListener("scroll", () => {
-		console.log(window.scrollY);
 		if (titleContainer && window.scrollY >= 400) {
 			titleContainer.classList.add("title-container-scrolled");
 		} else if (titleContainer) {
