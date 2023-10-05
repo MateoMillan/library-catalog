@@ -11,7 +11,7 @@ export default function Select({ name, id, options, className, onChange }: PropT
 		<>
 			<select name={name} id={id} onChange={onChange} className={className && className}>
 				{options.map((value, index) => {
-					return <option key={index} value={value}>{value === "All" ? "Todos" : value}</option>;
+					return <option key={index} value={value}>{value}</option>;
 				})}
 			</select>
 		</>

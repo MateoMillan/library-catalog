@@ -7,15 +7,20 @@ import Footer from "./components/Footer/Footer.tsx";
 import items from "./data/footer-items.json";
 import FilterContainer from "./components/ReUtils/FilterContainer/FilterContainer.tsx";
 import { useState } from "react";
+import { ContextProvider } from "./context/ContextProvider.tsx";
 
-type Genre = "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror" | "All"
+type Genre = "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror" | "All";
 
 export default function App() {
 	const [searchState, setSearchState] = useState<string>("");
 	const [pagesState, setPagesState] = useState<number>(1500);
 	const [genresState, setGenresState] = useState<Genre>("All");
 
-	const manejarDatosDesdeHijo = (search: string, genre: Genre, pages: number) => {
+	const manejarDatosDesdeHijo = (
+		search: string,
+		genre: Genre,
+		pages: number
+	) => {
 		setSearchState(search);
 		setPagesState(pages);
 		setGenresState(genre);
@@ -31,14 +36,16 @@ export default function App() {
 					books={library}
 					onSendData={manejarDatosDesdeHijo}
 				/>
-				<CatalogContainer
-					books={library}
-					filters={{
-						pages: pagesState,
-						search: searchState,
-						genres: genresState,
-					}}
-				/>
+				<ContextProvider>
+					<CatalogContainer
+						books={library}
+						filters={{
+							pages: pagesState,
+							search: searchState,
+							genres: genresState,
+						}}
+					/>
+				</ContextProvider>
 			</Div>
 			<Saved />
 			<Footer items={items} />

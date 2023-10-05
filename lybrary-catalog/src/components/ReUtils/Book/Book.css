@@ -7,12 +7,11 @@
 	border-radius: 20px;
 	overflow: hidden;
 	box-sizing: border-box;
-	transition: .1s;
+	transition: 0.1s;
 	margin: 20px;
 	z-index: 450;
 	box-shadow: 6px 6px 10px 1px rgba(0, 0, 0, 0.448);
 }
-
 
 .material-div {
 	position: absolute;
@@ -23,18 +22,18 @@
 	transform: rotate(30deg);
 	background: linear-gradient(45deg, #ffffff31 0%, transparent 100%);
 	z-index: 750;
-	transition: .5s cubic-bezier(0, 0.47, 0.58, 1);
+	transition: 0.5s cubic-bezier(0, 0.47, 0.58, 1);
 	filter: blur(5px);
 }
 
-.book:hover .material-div{
+.book:hover .material-div {
 	top: -340px;
 }
 
 .book-image {
 	width: 300px;
 	border-radius: 20px;
-	transition: .1s;
+	transition: 0.1s;
 	z-index: 500;
 }
 
@@ -46,7 +45,7 @@
 	justify-content: space-between;
 	background-color: #363636;
 	color: #ddd;
-	transition: .3s;
+	transition: 0.3s;
 	padding: 15px;
 	width: 100%;
 	top: 100%;
@@ -54,10 +53,10 @@
 	box-shadow: 5px 5px 200px black;
 }
 
-.book:hover .book-info{
+.book:hover .book-info {
 	top: 75%;
 	z-index: 550;
-	transition: .3s;
+	transition: 0.3s;
 }
 
 .book:hover {
@@ -70,4 +69,34 @@
 }
 .book-pages {
 	width: 100%;
+}
+
+.save {
+	position: absolute;
+	right: -100%;
+	top: 10px;
+	padding: 10px;
+	border: none;
+	border-radius: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 40px;
+	width: 55px;
+	height: 55px;
+	z-index: 1500;
+	transition: 0.3s all ease-out;
+	background-color: #363636;
+	color: #ddd;
+	cursor: pointer;
+}
+
+.book:hover .save {
+	right: 10px;
+}
+
+.saved {
+	background-color: #7fdb7f;
+	color: black;
+	right: 10px;
 }

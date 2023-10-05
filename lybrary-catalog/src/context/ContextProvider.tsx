@@ -1,27 +1,47 @@
 import { createContext, useState } from "react";
 
+interface Author {
+	name: string;
+	otherBooks: string[];
+}
+
+interface Book {
+	title: string;
+	pages: number;
+	genre: string;
+	cover: string;
+	synopsis: string;
+	year: number;
+	ISBN: string;
+	author: Author;
+}
+
+interface LibraryItem {
+	book: Book;
+}
+
 const MyContext = createContext<{
-	data: string;
-	onUpdate: (nuevoDato: any) => void;
+	data: LibraryItem[];
+	onUpdate: (newData: any) => void;
 }>({
-	data: "",
-	onUpdate: (dato) => {
-		dato;
+	data: [],
+	onUpdate: (newData) => {
+		newData;
 	},
 });
 
-const ProveedorContexto = ({ children }: { children: any }) => {
-	const [data, setData] = useState("");
+const ContextProvider = ({ children }: { children: any }) => {
+	const [dataState, setData] = useState<LibraryItem[]>([]);
 
-	const manejarActualizacion = (nuevoDato: any) => {
-		setData(nuevoDato);
+	const handleUpdate = (newData: LibraryItem[]) => {
+		setData(() => [...newData]);
 	};
-
+	
 	return (
-		<MyContext.Provider value={{ data: data, onUpdate: manejarActualizacion }}>
+		<MyContext.Provider value={{ data: dataState, onUpdate: handleUpdate }}>
 			{children}
 		</MyContext.Provider>
 	);
 };
 
-export { MyContext, ProveedorContexto };
+export { MyContext, ContextProvider };

@@ -5,3 +5,13 @@
 	height: min-content;
 	justify-content: flex-start;
 }
+
+.saved-catalog {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 20px;
+	left: 420px;
+	z-index: 1900;
+	transition: .8s;
+}

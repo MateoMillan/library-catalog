@@ -1,5 +1,4 @@
 .saved-container {
-	
 	border-radius: 100px;
 	padding: 15px;
 	font-size: 30px;
@@ -7,7 +6,7 @@
 	background-color: #7fdb7f;
 	right: 50px;
 	bottom: 50px;
-	z-index: 1500;
+	z-index: 1800;
 	height: 70px;
 	width: 70px;
 	display: flex;
@@ -16,6 +15,7 @@
 	cursor: pointer;
 	transition: .8s ease-out;
 	overflow: hidden;
+	box-sizing: border-box;
 }
 
 .saved-toggle {
@@ -27,6 +27,15 @@
 	align-items: center;
 	cursor: pointer;
 	transition: .8s ease-out;
+	overflow: hidden;
+	z-index: 2000;
+}
+
+.saved-catalog-section {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
 }
 
 .active {
@@ -34,5 +43,13 @@
 }
 
 .active .saved-toggle{
-	transform: scale(.02);
+	transform: scale(.014);
+}
+
+.active .saved-catalog {
+	transform: scale(.05);
+}
+
+.active .saved-catalog-section {
+	transform: scale(.05);
 }
