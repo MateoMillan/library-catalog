@@ -27,6 +27,33 @@
 	filter: blur(5px);
 }
 
+.save-button {
+	background-color: #363636;
+	color: #ddd;
+	border-radius: 100px;
+	position: absolute;
+	font-size: 35px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 5px;
+	right: -100%;
+	z-index: 800;
+	transition: .3s ease-out;
+	padding: 15px;
+	cursor: pointer;
+}
+
+.saved {
+	background-color: #7fdb7f;
+	color: #363636;
+	right: 5px;
+}
+
+.book:hover .save-button{
+	right: 5px;
+}
+
 .book:hover .material-div{
 	top: -340px;
 }
