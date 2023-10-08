@@ -1,4 +1,7 @@
+import { useState } from "react";
 import Book from "../Book/Book";
+import NoBook from "../NoBooks/NoBook";
+import "./CatalogContainer.css";
 
 interface Author {
 	name: string;
@@ -31,10 +34,11 @@ interface PropTypes {
 		pages: number;
 		genres: "All" | "Fantasía" | "Ciencia ficción" | "Zombies" | "Terror";
 	};
+	className?: string;
 }
 
-export default function CatalogContainer({ books, filters }: PropTypes) {
-	const bookLibrary = books.library;
+export default function CatalogContainer({ books, filters, className }: PropTypes) {
+	const [bookLibrary] = useState(books.library);
 
 	const filteredBooks = bookLibrary.filter((element: LibraryItem) => {
 		if (filters) {
@@ -60,10 +64,14 @@ export default function CatalogContainer({ books, filters }: PropTypes) {
 	});
 
 	return (
-		<div className="book-container">
-			{filteredBooks.map((libraryItem: LibraryItem, index: number) => (
-				<Book key={index} book={libraryItem.book} />
-			))}
+		<div className={`book-container ${className && className}`}>
+			{filteredBooks.length !== 0 ? (
+				filteredBooks.map((libraryItem: LibraryItem, index: number) => (
+					<Book key={index} book={libraryItem.book} />
+				))
+			) : (
+				<NoBook />
+			)}
 		</div>
 	);
 }
