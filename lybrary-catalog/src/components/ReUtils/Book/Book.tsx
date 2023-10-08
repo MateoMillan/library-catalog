@@ -22,30 +22,35 @@ interface Book {
 
 interface LibraryItem {
 	book: Book;
+	isSaved: boolean;
 }
 
-export default function Book({ book }: LibraryItem) {
-	const [isSaved, setIsSaved] = useState<boolean>(false);
+export default function Book({ book, isSaved }: LibraryItem) {
+	const [isSavedState, setIsSaved] = useState<boolean>(isSaved);
 	const dispatch = useDispatch();
 
 	function handleSave() {
-		if (isSaved) {
-			dispatch(removeBook(book));
+		if (isSavedState) {
+			dispatch(removeBook({ book: book }));
 		} else {
-			dispatch(addBook(book));
+			dispatch(addBook({ book: book }));
 		}
-		setIsSaved((isSaved) => !isSaved);
+		setIsSaved((isSavedState) => !isSavedState);
 	}
 
 	return (
 		<>
 			<div className="book">
-				<div
-					className={isSaved ? "save-button saved" : "save-button"}
-					onClick={handleSave}
-				>
-					<IoBookmarkOutline />
-				</div>
+				{!isSaved && (
+					<div
+						className={
+							isSavedState ? "save-button saved" : "save-button"
+						}
+						onClick={handleSave}
+					>
+						<IoBookmarkOutline />
+					</div>
+				)}
 				<div className="material-div"></div>
 				<img
 					src={book.cover}
