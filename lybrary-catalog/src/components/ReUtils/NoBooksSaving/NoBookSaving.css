@@ -1,0 +1,28 @@
+.no-book-saving {
+	display: flex;
+	width: fit-content;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	flex-direction: column;
+	border-radius: 20px;
+	overflow: hidden;
+	box-sizing: border-box;
+	transition: .1s;
+	margin: 20px;
+	z-index: 450;
+	background-color: #7fdb7f;;
+	color: #363636;
+}
+
+.no-book-image {
+	width: 300px;
+	border-radius: 20px;
+	transition: .1s;
+	z-index: 500;
+}
+
+.no-book-paragraph {
+	margin-top: 5px;
+	font-size: 15px;
+}

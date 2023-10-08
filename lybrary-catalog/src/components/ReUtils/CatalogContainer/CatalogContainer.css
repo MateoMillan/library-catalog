@@ -5,3 +5,9 @@
 	height: min-content;
 	justify-content: flex-start;
 }
+
+.saved-catalog {
+	position: relative;
+	top: 0;
+	left: 0;
+}
